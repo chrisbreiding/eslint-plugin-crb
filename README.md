@@ -6,19 +6,28 @@
 npm install --save-dev eslint-plugin-crb
 ```
 
+Requires ESLint 10+ and Node.js 20.19+.
+
 ## Usage
 
-Extend one or more of the presets depending on the nature of the package:
+Import one or more of the presets into your `eslint.config.js` depending on the nature of the package:
 
 ```js
-// .eslintrc.json
-{
-  "extends": [
-    "plugin:crb/general",
-    "plugin:crb/tests",
-    "plugin:crb/react"
-  ]
-}
+// eslint.config.js
+const crb = require('eslint-plugin-crb')
+
+/** @type {import('eslint').Linter.Config[]} */
+module.exports = [
+  crb.configs.general,
+  {
+    files: ['test/**'],
+    ...crb.configs.tests,
+  },
+  {
+    files: ['**/*.{jsx,tsx}'],
+    ...crb.configs.react,
+  },
+]
 ```
 
 ## Presets
